@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - Tienda de Celulares</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card mt-5">
+                    <div class="card-body">
+                        <h3 class="card-title text-center">Registrarse</h3>
+                        <form id="registro-form" class="registro-form">
+                            <div class="form-group">
+                                <label for="dni">DNI</label>
+                                <input type="text" class="form-control" id="dni" name="dni" placeholder="Ingrese su DNI" maxlength="8" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="nombre">Nombre</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese su Nombre" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="apellido">Apellido</label>
+                                <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Ingrese su Apellido" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="telefono">Número Telefónico</label>
+                                <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Ingrese su Número Telefónico" maxlength="9" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="correo">Correo Electrónico</label>
+                                <input type="email" class="form-control" id="correo" name="correo" placeholder="Ingrese su Correo Electrónico" required>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <button type="button" class="btn btn-secondary mr-2" id="cancel-button">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Registrar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('registro-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const dni = document.getElementById('dni').value.trim();
+            const nombre = document.getElementById('nombre').value.trim();
+            const apellido = document.getElementById('apellido').value.trim();
+            const telefono = document.getElementById('telefono').value.trim();
+            const correo = document.getElementById('correo').value.trim();
+            
+            const data = {
+                dni: dni,
+                nombre: nombre,
+                apellido: apellido,
+                telefono: telefono,
+                correo: correo
+            };
+            
+            localStorage.setItem('registro', JSON.stringify(data));
+            alert('Registro exitoso');
+            window.location.href = 'Login.html';
+        });
+
+        document.getElementById('cancel-button').addEventListener('click', function() {
+            window.location.href = 'Login.html';
+        });
+
+        document.getElementById('dni').addEventListener('input', function () {
+            this.value = this.value.replace(/\D/g, '');
+        });
+    </script>
+</body>
+</html>

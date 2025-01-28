@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Tienda de Celulares</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card mt-5">
+                    <div class="card-body">
+                        <h3 class="card-title text-center">REGISTRO</h3>
+                        <form id="login-form" class="login-form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="dni" name="dni" placeholder="Ingrese su DNI" maxlength="8" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
+                        </form>
+                        <p id="error-message" class="error-message text-danger mt-2"></p>
+                        <a href="registro.html" class="btn btn-success btn-block mt-3">Registrarte</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById('login-form');
+        const errorMessage = document.getElementById('error-message');
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const dni = document.getElementById('dni').value.trim();
+
+            if (!/^\d{8}$/.test(dni)) {
+                errorMessage.textContent = 'El DNI debe tener exactamente 8 números.';
+                return;
+            }
+
+            const storedData = JSON.parse(localStorage.getItem('registro'));
+            if (storedData && storedData.dni === dni) {
+                window.location.href = 'menu.html'; // Redirigir al menú después de un login exitoso
+            } else {
+                errorMessage.textContent = 'No se encuentra el DNI ingresado.';
+            }
+        });
+
+        document.getElementById('dni').addEventListener('input', function () {
+            this.value = this.value.replace(/\D/g, '');
+        });
+    </script>
+</body>
+</html>
